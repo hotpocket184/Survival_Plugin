@@ -1,0 +1,5 @@
+name: Survival
+version: '${project.version}'
+main: me.hotpocket.survival.Survival
+api-version: 1.19
+authors: [ hotpocket, Lord, Catalysm ]
