@@ -22,6 +22,7 @@ public final class Survival extends JavaPlugin {
         instance = this;
 
         File file = new File(getDataFolder() + File.separator + "config.yml");
+
         if (!file.exists()){
             getConfig().options().copyDefaults(true);
             saveDefaultConfig();
