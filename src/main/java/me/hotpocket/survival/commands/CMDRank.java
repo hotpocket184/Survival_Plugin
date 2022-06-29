@@ -19,7 +19,7 @@ public class CMDRank extends BukkitCommand {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
-        if (RankManager.getPermissionLevel((Player) sender) > 9) {
+        if (RankManager.getPermissionLevel((Player) sender) > 9 || sender.isOp()) {
             if (args.length > 0) {
                 if (args[0].equalsIgnoreCase("set")) {
                     if (args.length > 1) {

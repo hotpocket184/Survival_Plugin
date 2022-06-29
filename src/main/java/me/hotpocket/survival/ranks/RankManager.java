@@ -15,10 +15,12 @@ public class RankManager {
 
     public static void init() {
         File rankFile = new File(Survival.getInstance().getDataFolder(), "ranks.yml");
-        try {
-            rankFile.createNewFile();
-        } catch(IOException err) {
-            Bukkit.getLogger().warning("Unable to create the file 'ranks.yml'!");
+        if(!rankFile.exists()) {
+            try {
+                rankFile.createNewFile();
+            } catch (IOException err) {
+                Bukkit.getLogger().warning("Unable to create the file 'ranks.yml'!");
+            }
         }
     }
 
@@ -29,7 +31,7 @@ public class RankManager {
             }
             rankConfig.set(player.getUniqueId().toString(), rank);
             try {
-                rankConfig.save(new File(Survival.getInstance().getDataFolder(), File.separator + "ranks.yml"));
+                rankConfig.save(new File(Survival.getInstance().getDataFolder(), "ranks.yml"));
             } catch (IOException err) {
                 Bukkit.getLogger().warning("Failed to save the file 'ranks.yml'!");
             }
@@ -37,10 +39,23 @@ public class RankManager {
     }
 
     public static String getRank(OfflinePlayer player) {
-        if(rankConfig.contains(player.getUniqueId().toString())) {
-            return rankConfig.get(player.getUniqueId().toString()).toString();
+        if(!rankConfig.contains(player.getUniqueId().toString())) {
+            rankConfig.set(player.getUniqueId().toString(), "default");
         }
-        return "default";
+        try {
+            rankConfig.save(new File(Survival.getInstance().getDataFolder(), "ranks.yml"));
+        } catch (IOException err) {
+            Bukkit.getLogger().warning("Failed to save the file 'ranks.yml'!");
+        }
+        return rankConfig.get(player.getUniqueId().toString()).toString();
+    }
+
+    public static void save() {
+        try {
+            rankConfig.save(new File(Survival.getInstance().getDataFolder(), "ranks.yml"));
+        } catch (IOException err) {
+            Bukkit.getLogger().warning("Failed to save the file 'ranks.yml'!");
+        }
     }
 
     public static int getPermissionLevel(OfflinePlayer player) {

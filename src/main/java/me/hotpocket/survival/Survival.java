@@ -1,16 +1,17 @@
 package me.hotpocket.survival;
 
-import me.hotpocket.survival.commands.CMDGameMode;
-import me.hotpocket.survival.commands.CMDRank;
-import me.hotpocket.survival.commands.CMDReload;
-import me.hotpocket.survival.commands.CMDRules;
+import me.hotpocket.survival.commands.*;
 import me.hotpocket.survival.listeners.LsnrJoin;
 import me.hotpocket.survival.listeners.LsnrLeave;
 import me.hotpocket.survival.listeners.LsnrRightClick;
 import me.hotpocket.survival.ranks.RankManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.SimpleCommandMap;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -47,6 +48,7 @@ public final class Survival extends JavaPlugin {
             commandMap.register("Survival", new CMDRules("rules"));
             commandMap.register("Survival", new CMDReload("reload-config"));
             commandMap.register("Survival", new CMDRank("rank"));
+            commandMap.register("Survival", new CMDClearChat("clearchat"));
 
             Bukkit.getLogger().info("&aSuccessfully registered commands.");
         } catch (Exception e) {
@@ -58,13 +60,24 @@ public final class Survival extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new LsnrJoin(), this);
         Bukkit.getPluginManager().registerEvents(new LsnrLeave(), this);
 
+        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(this.getInstance(), "enchanted_apple"), new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
+        recipe.shape("***", "*o*", "***");
+        recipe.setIngredient('*', Material.GOLD_BLOCK);
+        recipe.setIngredient('o', Material.APPLE);
+        Bukkit.addRecipe(recipe);
+
         RankManager.init();
+        RankManager.save();
     }
 
     @Override
     public void onDisable() {
         reloadConfig();
         this.saveDefaultConfig();
+
+        Bukkit.removeRecipe(new NamespacedKey(getInstance(), "enchanted_apple"));
+
+        RankManager.save();
     }
 
     public static Survival getInstance() {
