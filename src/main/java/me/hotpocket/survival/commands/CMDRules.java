@@ -19,7 +19,7 @@ public class CMDRules extends BukkitCommand {
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("You cannot use this command.");
-            return true;
+            return false;
         }
 
         Player player = (Player) sender;

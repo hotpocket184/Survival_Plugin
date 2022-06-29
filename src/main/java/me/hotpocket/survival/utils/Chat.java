@@ -18,4 +18,8 @@ public class Chat {
     public static void sendActionBar(Player player, String message) {
         player.sendActionBar(Component.text(ChatColor.translateAlternateColorCodes('&', message)));
     }
+
+    public static String translate(String message) {
+        return ChatColor.translateAlternateColorCodes('&', message);
+    }
 }
