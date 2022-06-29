@@ -2,7 +2,7 @@ package me.hotpocket.survival.commands;
 
 import me.hotpocket.survival.ranks.RankManager;
 import me.hotpocket.survival.utils.Chat;
-import me.hotpocket.survival.utils.RankUtils;
+import me.hotpocket.survival.utils.EnumUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
@@ -19,12 +19,12 @@ public class CMDRank extends BukkitCommand {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
-        if (RankManager.getPermissionLevel((Player) sender) > 9 || sender.isOp()) {
+        if (RankManager.getPermissionLevel((Player) sender) > 5 || sender.isOp()) {
             if (args.length > 0) {
                 if (args[0].equalsIgnoreCase("set")) {
                     if (args.length > 1) {
                         Bukkit.getOfflinePlayer(args[1]);
-                        if (RankUtils.exists(args[2])) {
+                        if (EnumUtils.rankExists(args[2])) {
                             RankManager.setRank(Bukkit.getOfflinePlayer(args[1]), args[2]);
                             Chat.sendMessage((Player) sender, "&a&lSUCCESS &7Set &b" + Bukkit.getOfflinePlayer(args[1]).getName() + "'s &7rank to &6" + args[2].replaceAll("_", "-").toLowerCase() + "&7!");
                             return true;

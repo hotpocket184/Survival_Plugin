@@ -1,5 +1,6 @@
 package me.hotpocket.survival.commands;
 
+import me.hotpocket.survival.ranks.RankManager;
 import me.hotpocket.survival.utils.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -46,9 +47,13 @@ public class CMDGameMode implements CommandExecutor {
                 default:
                     return false;
             }
-            player.setGameMode(GameMode.valueOf(mode.toUpperCase()));
-            Chat.sendMessage(sender, "&a&lSUCCESS &7You have set &b" + player.getName() + "'s &7gamemode to " + mode + "!");
-            return true;
+            if(RankManager.getPermissionLevel((Player) sender) > 10 || sender.isOp()) {
+                player.setGameMode(GameMode.valueOf(mode.toUpperCase()));
+                Chat.sendMessage(sender, "&a&lSUCCESS &7You have set &b" + player.getName() + "'s &7gamemode to " + mode + "!");
+                return true;
+            } else {
+                Chat.sendMessage(sender, "&c&lERROR &7You do not have permission to use this command!");
+            }
         }
         return false;
     }

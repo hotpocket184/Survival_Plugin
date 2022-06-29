@@ -29,7 +29,7 @@ public class CMDClearChat extends BukkitCommand {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
-        if(RankManager.getPermissionLevel((OfflinePlayer) sender) > 5) {
+        if(RankManager.getPermissionLevel((OfflinePlayer) sender) > 6) {
             for(Player player : Bukkit.getOnlinePlayers()) {
                 for(int i = 0; i < 100; i++) {
                     Chat.sendMessage(player, " ");

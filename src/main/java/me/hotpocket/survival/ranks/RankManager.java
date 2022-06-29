@@ -1,7 +1,7 @@
 package me.hotpocket.survival.ranks;
 
 import me.hotpocket.survival.Survival;
-import me.hotpocket.survival.utils.RankUtils;
+import me.hotpocket.survival.utils.EnumUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -25,7 +25,7 @@ public class RankManager {
     }
 
     public static void setRank(OfflinePlayer player, String rank) {
-        if(RankUtils.exists(rank.toUpperCase().replaceAll("-", "_"))) {
+        if(EnumUtils.rankExists(rank.toUpperCase().replaceAll("-", "_"))) {
             if (!rankConfig.contains(player.getUniqueId().toString())) {
                 rankConfig.addDefault(player.getUniqueId().toString(), rank);
             }
@@ -61,24 +61,26 @@ public class RankManager {
     public static int getPermissionLevel(OfflinePlayer player) {
         switch(getRank(player)) {
             case("owner"):
-                return 14;
+                return 15;
             case("co-owner"):
-                return 13;
+                return 14;
             case("admin"):
-                return 12;
+                return 13;
             case("head-dev"):
-                return 11;
+                return 12;
             case("dev"):
-                return 10;
+                return 11;
             case("trial-dev"):
-                return 9;
+                return 10;
             case("sr-mod"):
-                return 8;
+                return 9;
             case("mod"):
-                return 7;
+                return 8;
             case("jr-mod"):
-                return 6;
+                return 7;
             case("trial-mod"):
+                return 6;
+            case("builder"):
                 return 5;
             case("legend"):
                 return 4;
@@ -93,6 +95,37 @@ public class RankManager {
         }
     }
 
+    public static String getRankColor(Rank rank) {
+        switch(rank.name()) {
+            case("OWNER"):
+            case("CO_OWNER"):
+                return "&c";
+            case("ADMIN"):
+            case("VIP_PLUS"):
+            case("VIP"):
+                return "&a";
+            case("HEAD_DEV"):
+                return "&5";
+            case("DEV"):
+            case("TRIAL_DEV"):
+                return "&d";
+            case("BUILDER"):
+                return "&2";
+            case("SR_MOD"):
+            case("LEGEND"):
+                return "&6";
+            case("MOD"):
+            case("JR_MOD"):
+                return "&e";
+            case("TRIAL_MOD"):
+                return "&9";
+            case("ELITE"):
+                return "&3";
+            default:
+                return "&7";
+        }
+    }
+
     public enum Rank {
         OWNER,
         CO_OWNER,
@@ -100,6 +133,7 @@ public class RankManager {
         HEAD_DEV,
         DEV,
         TRIAL_DEV,
+        BUILDER,
         SR_MOD,
         MOD,
         JR_MOD,

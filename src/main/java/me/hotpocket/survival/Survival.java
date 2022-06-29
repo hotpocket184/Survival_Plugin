@@ -1,6 +1,7 @@
 package me.hotpocket.survival;
 
 import me.hotpocket.survival.commands.*;
+import me.hotpocket.survival.listeners.LsnrChat;
 import me.hotpocket.survival.listeners.LsnrJoin;
 import me.hotpocket.survival.listeners.LsnrLeave;
 import me.hotpocket.survival.listeners.LsnrRightClick;
@@ -59,6 +60,7 @@ public final class Survival extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new LsnrRightClick(), this);
         Bukkit.getPluginManager().registerEvents(new LsnrJoin(), this);
         Bukkit.getPluginManager().registerEvents(new LsnrLeave(), this);
+        Bukkit.getPluginManager().registerEvents(new LsnrChat(), this);
 
         ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(getInstance(), "enchanted_apple"), new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
         recipe.shape("***", "*o*", "***");
