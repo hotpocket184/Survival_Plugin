@@ -60,7 +60,7 @@ public final class Survival extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new LsnrJoin(), this);
         Bukkit.getPluginManager().registerEvents(new LsnrLeave(), this);
 
-        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(this.getInstance(), "enchanted_apple"), new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
+        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(getInstance(), "enchanted_apple"), new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
         recipe.shape("***", "*o*", "***");
         recipe.setIngredient('*', Material.GOLD_BLOCK);
         recipe.setIngredient('o', Material.APPLE);
