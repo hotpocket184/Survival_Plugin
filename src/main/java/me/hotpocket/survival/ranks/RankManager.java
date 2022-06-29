@@ -3,6 +3,7 @@ package me.hotpocket.survival.ranks;
 import me.hotpocket.survival.Survival;
 import me.hotpocket.survival.utils.EnumUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -12,6 +13,23 @@ import java.io.IOException;
 public class RankManager {
 
     private static YamlConfiguration rankConfig = YamlConfiguration.loadConfiguration(new File(Survival.getInstance().getDataFolder(), "ranks.yml"));
+
+    // Don't mind this :P
+
+    public static void setSpawn(Location location) {
+        if(!rankConfig.contains("spawn")) {
+            rankConfig.addDefault("spawn", location);
+        }
+        rankConfig.set("spawn", location);
+        save();
+    }
+
+    public static Location getSpawn() {
+        if(rankConfig.contains("spawn")) {
+            return rankConfig.getLocation("spawn");
+        }
+        return null;
+    }
 
     public static void init() {
         File rankFile = new File(Survival.getInstance().getDataFolder(), "ranks.yml");

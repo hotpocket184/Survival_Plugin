@@ -19,7 +19,7 @@ public class LsnrChat implements Listener {
             message = " &7› &f" + event.getMessage();
         }
         if(EnumUtils.rankExists(rank.replaceAll("-", "_"))) {
-            event.setFormat(Chat.translate(RankManager.getRankColor(RankManager.Rank.valueOf(rank.replaceAll("-", "_"))) + "[" + rank.replace("-PLUS", "+") + "] " + event.getPlayer().getName() + message));
+            event.setFormat(Chat.translate(RankManager.getRankColor(RankManager.Rank.valueOf(rank.replaceAll("-", "_"))) + "[" + rank.replace("-PLUS", "+") + "] " + event.getPlayer().getName() + message.replaceAll("%", "%%")));
         }
     }
 }

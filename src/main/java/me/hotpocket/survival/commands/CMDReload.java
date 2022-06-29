@@ -1,5 +1,6 @@
 package me.hotpocket.survival.commands;
 
+import me.hotpocket.survival.Survival;
 import me.hotpocket.survival.ranks.RankManager;
 import me.hotpocket.survival.utils.Chat;
 import org.bukkit.command.CommandSender;
@@ -23,6 +24,8 @@ public class CMDReload extends BukkitCommand {
         if(sender instanceof Player player) {
             if(RankManager.getPermissionLevel(player) > 9) {
                 reloaded = true;
+                Survival.getInstance().reloadConfig();
+                Survival.getInstance().saveDefaultConfig();
                 Chat.sendMessage(player, "&a&lSUCCESS &7The configuration files have been reloaded!");
             }
         } else if(sender instanceof ConsoleCommandSender) {

@@ -12,3 +12,7 @@ commands:
     description: Sets the gamemode of a player to survival.
   gmsp:
     description: Sets the gamemode of a player to spectator.
+  day:
+    description: Sets the time on the server to day (1000 ticks).
+  night:
+    description: Sets the time on the server to night (13000 ticks).

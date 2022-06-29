@@ -21,7 +21,6 @@ import java.lang.reflect.Field;
 public final class Survival extends JavaPlugin {
 
     private static Survival instance;
-    private SimpleCommandMap commandMap;
 
     @Override
     public void onEnable() {
@@ -33,13 +32,15 @@ public final class Survival extends JavaPlugin {
             saveDefaultConfig();
         } else {
             reloadConfig();
-            this.saveDefaultConfig();
+            saveDefaultConfig();
         }
 
         this.getCommand("gma").setExecutor(new CMDGameMode());
         this.getCommand("gmc").setExecutor(new CMDGameMode());
         this.getCommand("gms").setExecutor(new CMDGameMode());
         this.getCommand("gmsp").setExecutor(new CMDGameMode());
+        this.getCommand("day").setExecutor(new CMDTime());
+        this.getCommand("night").setExecutor(new CMDTime());
 
         try {
             final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
@@ -50,6 +51,8 @@ public final class Survival extends JavaPlugin {
             commandMap.register("Survival", new CMDReload("reload-config"));
             commandMap.register("Survival", new CMDRank("rank"));
             commandMap.register("Survival", new CMDClearChat("clearchat"));
+            commandMap.register("Survival", new CMDSetSpawn("setspawn"));
+            commandMap.register("Survival", new CMDSpawn("spawn"));
 
             Bukkit.getLogger().info("&aSuccessfully registered commands.");
         } catch (Exception e) {
@@ -74,9 +77,6 @@ public final class Survival extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        reloadConfig();
-        this.saveDefaultConfig();
-
         Bukkit.removeRecipe(new NamespacedKey(getInstance(), "enchanted_apple"));
 
         RankManager.save();
